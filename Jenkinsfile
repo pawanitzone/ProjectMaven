@@ -11,7 +11,7 @@ pipeline {
           sh "docker push pawanitzone/hyt-http:${env.BUILD_NUMBER}"
         }
       }
-    }
+    
     stage('Docker Remove Image') {
       steps {
         sh "docker rmi pawanitzone/hello:${env.BUILD_NUMBER}"
@@ -22,6 +22,7 @@ pipeline {
         sh "docker run -d --name hello-${env.BUILD_NUMBER} -p 8888:8080 pawanitzone/hello:${env.BUILD_NUMBER}"
       }
     }
+ }
 }
 
 
