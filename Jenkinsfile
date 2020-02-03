@@ -8,7 +8,9 @@ pipeline {
     }
     stage('Docker Push') {
       steps {
-          sh "docker push pawanitzone/hyt-http:${env.BUILD_NUMBER}"
+	  withCredentials([usernamePassword(credentialsId: 'dockerHubUser', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+          sh "docker push pawanitzone/hello:${env.BUILD_NUMBER}"
         }
       }
 
@@ -19,9 +21,8 @@ pipeline {
     }
         stage('Docker run container') {
       steps {
-	    withCredentials([docker]){
         sh "sudo docker run -d --name hello-${env.BUILD_NUMBER} -p 8888:8080 pawanitzone/hello:${env.BUILD_NUMBER}"
-		}
+		
       }
     }
  }
