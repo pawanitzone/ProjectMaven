@@ -16,15 +16,21 @@ pipeline {
         }
 	stage ('Clone Sources') {
         steps {
-                git url: 'https://github.com/pawanitzone/ProjectMaven.git'
+                git branch: 'master', url: 'https://github.com/pawanitzone/ProjectMaven.git'
             }
         }
 		
-	stage ('Build') {
-        steps {
-          sh "mvn clean package -f pom.xml" 
-         }			
-	}
+        stage ('Exec Maven') {
+            steps {
+                rtMavenRun (
+                    tool: Maven, // Tool name from Jenkins configuration
+                    pom: 'pom.xml',
+                    goals: 'clean package',
+                    deployerId: "MAVEN_DEPLOYER",
+                    resolverId: "MAVEN_RESOLVER"
+                )
+            }
+        }
     
     stage('Docker Build') {
       steps {
