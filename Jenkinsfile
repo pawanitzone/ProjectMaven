@@ -21,7 +21,10 @@ pipeline {
 		
 	stage ('Build') {
         steps {
-          sh "mvn clean install"
+		git url: 'https://github.com/pawanitzone/ProjectMaven'
+		withMaven(
+			maven: 'maven'){
+			sh "mvn clean verify" }
          }			
 	}
     
