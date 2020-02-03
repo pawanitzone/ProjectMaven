@@ -1,7 +1,8 @@
 pipeline {
   agent any
   tools { 
-        maven 'Maven' 
+        maven 'Maven'
+        jdk "Java-1.8"		
     }
 	
   stages {
@@ -13,15 +14,17 @@ pipeline {
                 ''' 
             }
         }
-	stage ('Git') {
+	stage ('Clone Sources') {
         steps {
-                git url: 'https://github.com/pawanitzone/ProjectMaven.git'
+                git url: 'https://github.com/pawanitzone/ProjectMaven'
             }
         }
 		
 	stage ('Build') {
         steps {
-           sh 'mvn clean package'
+		   scripts{
+		     rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
+		   }
          }			
 		    post {
                 success {
