@@ -5,10 +5,13 @@ pipeline {
             args '-v /root/.m2:/root/.m2'
 	
         }
-	docker {
+    }
+    agent {
+	     
+	   docker {
 	      image 'docker'
 	}
-    }
+      }
   stages{
     stage ('Clone Sources') {
         steps {
