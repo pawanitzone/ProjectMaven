@@ -21,13 +21,7 @@ pipeline {
 		
 	stage ('Build') {
         steps {
-         rtMavenRun (
-          tool: 'mvn',
-          pom: 'pom.xml',
-          goals: 'clean install',
-          opts: '-Dartifactory.publish.artifacts=false -Dartifactory.publish.buildInfo=false',
-          resolverId: 'maven-resolver',
-          deployerId: 'maven-deployer'
+           sh 'mvn clean package'
           )
          }			
 		    post {
