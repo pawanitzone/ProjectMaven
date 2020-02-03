@@ -4,6 +4,7 @@ pipeline {
         maven 'Maven'
         jdk "jdk8"		
     }
+  stages{
     stage ('Clone Sources') {
         steps {
                 git branch: 'master', url: 'https://github.com/pawanitzone/ProjectMaven.git'
@@ -41,5 +42,6 @@ pipeline {
 		
       }
     }
+  }
 }
 
