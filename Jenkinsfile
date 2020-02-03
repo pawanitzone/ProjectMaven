@@ -22,7 +22,7 @@ pipeline {
 	stage ('Build') {
         steps {
          rtMavenRun (
-          tool: 'MVN-360',
+          tool: 'Maven',
           pom: 'pom.xml',
           goals: 'clean install',
           opts: '-Dartifactory.publish.artifacts=false -Dartifactory.publish.buildInfo=false',
