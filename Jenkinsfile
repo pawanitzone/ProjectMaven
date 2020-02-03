@@ -1,5 +1,9 @@
 pipeline {
   agent any
+  tools { 
+        maven 'Maven' 
+    }
+	
   stages {
     stage ('Initialize') {
             steps {
@@ -17,8 +21,15 @@ pipeline {
 		
 	stage ('Build') {
         steps {
-		  rtMaven.run pom: 'pom.xml', goals: 'install', buildInfo: buildInfo
-            }			
+         rtMavenRun (
+          tool: 'MVN-360',
+          pom: 'pom.xml',
+          goals: 'clean install',
+          opts: '-Dartifactory.publish.artifacts=false -Dartifactory.publish.buildInfo=false',
+          resolverId: 'maven-resolver',
+          deployerId: 'maven-deployer'
+          )
+         }			
 		    post {
                 success {
                     junit 'target/surefire-reports/**/*.xml' 
