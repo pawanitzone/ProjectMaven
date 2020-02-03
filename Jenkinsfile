@@ -17,9 +17,7 @@ pipeline {
 		
 	stage ('Build') {
         steps {
-		  
-			sh 'mvn compile'
-                        sh 'mvn package' 
+		  rtMaven.run pom: 'pom.xml', goals: 'install', buildInfo: buildInfo
             }			
 		    post {
                 success {
