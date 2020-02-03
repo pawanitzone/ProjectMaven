@@ -1,9 +1,6 @@
 pipeline {
   agent any
-  tools { 
-        maven 'Maven'	
-	jdk  'jdk8'
-    }
+
 	
   stages {
     stage ('Initialize') {
@@ -23,7 +20,7 @@ pipeline {
         stage ('Exec Maven') {
             steps {
                 rtMavenRun (
-                    tool: Maven-123, // Tool name from Jenkins configuration
+                    tool: Maven, // Tool name from Jenkins configuration
                     pom: 'pom.xml',
                     goals: 'clean package',
                     deployerId: "MAVEN_DEPLOYER",
