@@ -4,8 +4,6 @@ pipeline {
         maven 'Maven'
         jdk "jdk8"		
     }
-	
-  stages {
     stage ('Initialize') {
             steps {
                 sh '''
@@ -51,6 +49,5 @@ pipeline {
 		
       }
     }
- }
 }
 
