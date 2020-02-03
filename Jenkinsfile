@@ -1,8 +1,7 @@
 pipeline {
   agent any
   tools { 
-        maven 'Maven'
-        jdk "Java-1.8"		
+        maven 'Maven'		
     }
 	
   stages {
@@ -26,12 +25,7 @@ pipeline {
 		     rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
 		   }
          }			
-		    post {
-                success {
-                    junit 'target/surefire-reports/**/*.xml' 
-                }
-            }
-		}
+	}
     
     stage('Docker Build') {
       steps {
