@@ -4,14 +4,6 @@ pipeline {
         maven 'Maven'
         jdk "jdk8"		
     }
-    stage ('Initialize') {
-            steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-                ''' 
-            }
-        }
     stage ('Clone Sources') {
         steps {
                 git branch: 'master', url: 'https://github.com/pawanitzone/ProjectMaven.git'
