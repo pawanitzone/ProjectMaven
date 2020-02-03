@@ -17,17 +17,17 @@ pipeline {
             }
         }
 		
-        stage ('Exec Maven') {
-            steps {
-                rtMavenRun (
-                    tool: Maven, // Tool name from Jenkins configuration
-                    pom: 'pom.xml',
-                    goals: 'clean package',
-                    deployerId: "MAVEN_DEPLOYER",
-                    resolverId: "MAVEN_RESOLVER"
+    stage ('Exec Maven') {
+        steps {
+            rtMavenRun (
+                tool: Maven, // Tool name from Jenkins configuration
+                pom: 'pom.xml',
+                goals: 'clean package',
+                deployerId: "MAVEN_DEPLOYER",
+                resolverId: "MAVEN_RESOLVER"
                 )
-            }
         }
+    }
     
     stage('Docker Build') {
       steps {
