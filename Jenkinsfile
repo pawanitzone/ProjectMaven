@@ -3,8 +3,11 @@ pipeline {
         docker {
             image 'maven:3-alpine'
             args '-v /root/.m2:/root/.m2'
-	    image 'docker'
+	
         }
+	docker {
+	      image 'docker'
+	}
     }
   stages{
     stage ('Clone Sources') {
