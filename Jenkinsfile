@@ -16,7 +16,7 @@ pipeline {
         }
 	stage ('Clone Sources') {
         steps {
-                git url: 'https://github.com/pawanitzone/ProjectMaven'
+                git url: 'https://github.com/pawanitzone/ProjectMaven.git'
             }
         }
 		
