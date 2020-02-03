@@ -22,7 +22,7 @@ pipeline {
 		
 	stage ('Build') {
         steps {
-          sh "mvn clean verify -f pom.xml" 
+          sh "mvn clean package -f pom.xml" 
          }			
 	}
     
