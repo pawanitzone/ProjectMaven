@@ -11,19 +11,19 @@ pipeline {
                 ''' 
             }
         }
-	stage ('Clone Sources') {
+    stage ('Clone Sources') {
         steps {
                 git branch: 'master', url: 'https://github.com/pawanitzone/ProjectMaven.git'
             }
         }
 		
     stage ('Exec Maven') {
-        steps {
-            rtMavenRun (
-                tool: Maven, // Tool name from Jenkins configuration
-                pom: 'pom.xml',
-                goals: 'clean package'
-                )
+       steps {
+         rtMavenRun (
+           tool: Maven, // Tool name from Jenkins configuration
+           pom: 'pom.xml',
+           goals: 'clean package'
+           )
         }
     }
     
@@ -46,7 +46,7 @@ pipeline {
         sh "docker rmi pawanitzone/hello:${env.BUILD_NUMBER}"
       }
     }
-        stage('Docker run container') {
+    stage('Docker run container') {
       steps {
         sh "sudo docker run -d --name hello-${env.BUILD_NUMBER} -p 8888:8080 pawanitzone/hello:${env.BUILD_NUMBER}"
 		
@@ -54,3 +54,4 @@ pipeline {
     }
  }
 }
+
