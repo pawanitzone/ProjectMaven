@@ -1,6 +1,36 @@
 pipeline {
   agent any
+  tools { 
+        maven 'Maven' 
+        jdk 'jdk8' 
+    }
+	
   stages {
+    stage ('Initialize') {
+            steps {
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                ''' 
+            }
+        }
+	stage ('Git') {
+        steps {
+                git 'https://github.com/pawanitzone/ProjectMaven.git'
+            }
+        }
+		
+	stage ('Build') {
+        steps {
+                sh 'mvn -Dmaven.test.failure.ignore=true package' 
+            }			
+		    post {
+                success {
+                    junit 'target/surefire-reports/**/*.xml' 
+                }
+            }
+		}
+    
     stage('Docker Build') {
       steps {
         sh "docker build -t pawanitzone/hello:${env.BUILD_NUMBER} ."
