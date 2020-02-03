@@ -21,11 +21,16 @@ pipeline {
 		
 	stage ('Build') {
         steps {
-                sh 'mvn test' 
-		sh 'mvn compile' 
-		sh 'mvn package' 
+		        sh 'mvn -Dmaven.test.failure.ignore=true test'
+				sh 'mvn -Dmaven.test.failure.ignore=true compile'
+                sh 'mvn -Dmaven.test.failure.ignore=true package' 
             }			
-	
+		    post {
+                success {
+                    junit 'target/surefire-reports/**/*.xml' 
+                }
+            }
+		}
     
     stage('Docker Build') {
       steps {
@@ -53,5 +58,4 @@ pipeline {
       }
     }
  }
-}
 }
