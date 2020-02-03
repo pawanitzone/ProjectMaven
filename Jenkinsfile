@@ -13,6 +13,7 @@ pipeline {
           sh "docker push pawanitzone/hello:${env.BUILD_NUMBER}"
         }
       }
+	 }
 
     stage('Docker Remove Image') {
       steps {
@@ -27,4 +28,3 @@ pipeline {
     }
  }
 }
-
