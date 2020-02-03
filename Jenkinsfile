@@ -15,7 +15,7 @@ pipeline {
         }
 	stage ('Git') {
         steps {
-                git 'https://github.com/pawanitzone/ProjectMaven.git'
+                git url: 'https://github.com/pawanitzone/ProjectMaven.git'
             }
         }
 		
