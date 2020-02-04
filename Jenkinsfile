@@ -22,7 +22,7 @@ pipeline {
 		
     stage ('Exec Maven') {
        steps {
-         sh 'mvn -B -DskipTests clean package'
+         sh 'mvn clean verify'
         }
     }
     
