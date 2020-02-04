@@ -21,7 +21,7 @@ pipeline {
 		
     stage ('Exec Maven') {
        steps {
-         sh "mvn clean package"
+         sh "mvn clean package -f pom.xml"
         }
     }
     
