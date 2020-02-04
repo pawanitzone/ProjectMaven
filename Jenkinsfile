@@ -5,7 +5,6 @@ pipeline {
         
     }
 	
-  stages {
     stage ('Initialize') {
             steps {
                 sh '''
@@ -51,6 +50,5 @@ pipeline {
 		
       }
     }
- }
 }
 
