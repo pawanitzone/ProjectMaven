@@ -14,6 +14,8 @@ pipeline {
 		
     stage ('Exec Maven') {
        steps {
+         sh "mvn clean test"
+	 sh "mvn clean compile"
          sh "mvn -B -DskipTests clean package"
         }
         
