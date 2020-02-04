@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment { 
-        PATH = "/opt/maven/bin:$PATH"     
+        PATH = "/var/jenkins_home/maven/bin:$PATH"     
         
     }
 	
