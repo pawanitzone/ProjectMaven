@@ -46,7 +46,7 @@ pipeline {
     }
     stage('Docker run container') {
       steps {
-        sh "sudo docker run -d --name hello-${env.BUILD_NUMBER} -p 8888:8080 pawanitzone/hello:${env.BUILD_NUMBER}"
+        sh "docker run -d --name hello-${env.BUILD_NUMBER} -p 8888:8080 pawanitzone/hello:${env.BUILD_NUMBER}"
 		
       }
     }
