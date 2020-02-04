@@ -1,0 +1,28 @@
+pipeline {
+  agent any
+  environment { 
+        PATH = "/var/jenkins_home/maven/bin:$PATH"     //Add maven installation path 
+        }
+	
+  stages {
+    stage ('Clone Sources') {
+        steps {
+                git branch: 'master', url: 'https://github.com/pawanitzone/ProjectMaven' // Add credentials, git CredentialId: 'github' --
+            }
+        }
+         
+		
+    stage ('Exec Maven') {
+       steps {
+         sh "mvn -B -DskipTests clean package"
+        }
+        
+        post {
+            success {
+               junit 'target/surefire-reports/**/*.xml' 
+               }
+           }
+      }
+  }
+}
+
