@@ -47,8 +47,9 @@ pipeline {
     
     stage('Docker Remove  Previous Running Container Name Hello') {
       steps {
-        sh "docker stop `docker ps | grep hello-* |awk -F" " '{print $NF}'`"
-	sh "docker rm `docker ps | grep hello-* |awk -F" " '{print $NF}'`"
+        sh''' container=`docker ps | grep hello-* |awk -F" " '{print $NF}'`'''
+        sh "docker stop $container"
+	sh "docker rm $container"
       }
     }
     stage('Docker run container') {
