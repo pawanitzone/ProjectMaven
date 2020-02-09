@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment { 
-        PATH = "/var/jenkins_home/maven/bin:$PATH"     
+        PATH = "/opt/maven/bin:$PATH"     
         
     }
 	
@@ -21,33 +21,33 @@ pipeline {
 		
     stage ('Exec Maven') {
        steps {
-         sh 'mvn clean verify'
+         sh 'mvn clean package'
         }
     }
     
     stage('Docker Build') {
       steps {
-        sh "docker build -t pawanitzone/hello:${env.BUILD_NUMBER} ."
+        sh "docker build -t pawanitzone/pipeline-tomcatwar:${env.BUILD_NUMBER} ."
       }
     }
     stage('Docker Push') {
       steps {
 	  withCredentials([usernamePassword(credentialsId: 'dockerHubUser', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
           sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh "docker push pawanitzone/hello:${env.BUILD_NUMBER}"
+          sh "docker push pawanitzone/pipeline-tomcatwar:${env.BUILD_NUMBER}"
         }
       }
 	 }
 
     stage('Docker Remove Image') {
       steps {
-        sh "docker rmi pawanitzone/hello:${env.BUILD_NUMBER}"
+        sh "docker rmi pawanitzone/pipeline-tomcatwar:${env.BUILD_NUMBER}"
       }
     }
     
-    stage('Docker Remove  Previous Running Container Name Hello') {
+    stage('Docker Remove  Previous Running Container Name pipeline-tomcatwar') {
       steps {
-        sh''' container=`docker ps | grep hello-* |awk -F" " '{print $NF}'`
+        sh''' container=`docker ps | grep pipeline-tomcatwar-* |awk -F" " '{print $NF}'`
               docker stop $container
 	      docker rm $container
 	      
@@ -56,7 +56,7 @@ pipeline {
     }
     stage('Docker run container') {
       steps {
-        sh "docker run -d --name hello-${env.BUILD_NUMBER} -p 8888:8080 pawanitzone/hello:${env.BUILD_NUMBER}"
+        sh "docker run -d --name pipeline-tomcatwar-${env.BUILD_NUMBER} -p 8888:8080 pawanitzone/pipeline-tomcatwar:${env.BUILD_NUMBER}"
 		
       }
     }
