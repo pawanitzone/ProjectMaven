@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment { 
-        PATH = "/var/jenkins_home/maven/bin:$PATH"     //Add maven installation path 
+        PATH = "/opt/maven/bin:$PATH"     //Add maven installation path 
         }
 	
   stages {
