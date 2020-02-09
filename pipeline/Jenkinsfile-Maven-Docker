@@ -44,16 +44,7 @@ pipeline {
         sh "docker rmi pawanitzone/pipeline-tomcatwar:${env.BUILD_NUMBER}"
       }
     }
-    
-    stage('Docker Remove  Previous Running Container Name pipeline-tomcatwar') {
-      steps {
-        sh''' container=`docker ps | grep pipeline-tomcatwar-* |awk -F" " '{print $NF}'`
-              docker stop $container
-	      docker rm $container
-	      
-	   '''
-      }
-    }
+
     stage('Docker run container') {
       steps {
         sh "docker run -d --name pipeline-tomcatwar-${env.BUILD_NUMBER} -p 8888:8080 pawanitzone/pipeline-tomcatwar:${env.BUILD_NUMBER}"
